@@ -98,7 +98,7 @@ export default defineComponent({
   data() {
     return {
       isVisible: false as boolean,
-      favorites: JSON.parse(''+localStorage.getItem('vue-docs-favs')),
+      favorites: JSON.parse(''+localStorage.getItem('vue-docs-favs')) || [],
     };
   },
   computed: {
@@ -110,7 +110,6 @@ export default defineComponent({
     },
     courseIsFavorited(): boolean {
       return this.course.resources.some((resource: Resource) => {
-        console.log(this.favorites, resource.id)
         return this.favorites.includes(resource.id);
       })
     },
@@ -139,11 +138,11 @@ export default defineComponent({
       this.isVisible = false;
     },
     isFavoriteResource(resource: Resource): boolean {
-      const favorites: string[] = JSON.parse(''+localStorage.getItem('vue-docs-favs'));
+      const favorites: string[] = JSON.parse(''+localStorage.getItem('vue-docs-favs')) || [];
       return favorites.includes(resource.id);
     },
     toggleFavoriteResource(resource: Resource): void {
-      const favorites: string[] = JSON.parse(''+localStorage.getItem('vue-docs-favs'));
+      const favorites: string[] = JSON.parse(''+localStorage.getItem('vue-docs-favs'))  || [];
       const indexOf = favorites.indexOf(resource.id);
       if (indexOf === -1) {
         favorites.push(resource.id)
