@@ -11,7 +11,6 @@
         />
       </div>
   </div>
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
 </template>
 
 <script lang="ts">
@@ -65,6 +64,7 @@ body {
   flex-wrap: wrap;
   position: fixed;
   top: 0px;
+  z-index: 10;
 
 }
 .content {

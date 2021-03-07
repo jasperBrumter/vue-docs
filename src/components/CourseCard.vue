@@ -3,10 +3,16 @@
     @click="toggleShow"
     class="course-card"
   >
+    <span
+      v-if="courseIsFavorited"
+      class="material-icons course-favorite"
+    >
+      favorite
+    </span>
     <div class="img-div">
       <img
         v-if="hasImage"
-        :src="course.image || '../../public/img/vue-logo.png'"
+        :src="`/img/courses/${course.image}`"
         class="course-card__img"
         :alt="altText"
       />
@@ -18,17 +24,36 @@
       />
     </div>
     <div class="text-div">
-      <div class="title"><h2>{{ course.title }}</h2><span class="tag">Vue2</span></div>
+      <div class="title">
+        <h2>{{ course.title }}</h2>
+        <span v-if="course.vue2 === true" class="tag">Vue2</span>
+        <span v-if="course.vue3 === true" class="tag">Vue3</span>
+      </div>
       <span>{{ course.resources.length }} videos</span>
       <br>
-      <span>Difficulty: </span>
+      <span>Difficulty: {{ course.difficulty }}</span>
+      <ul>
+        <li
+          v-for="(link, index) in course.externalLinks"
+          :key="index"
+        >
+          <a
+            :href="link"
+            target="_blank"
+            style="text-decoration: none; color: black;"
+          >
+            {{ link }}
+          </a>
+        </li>
+      </ul>
     </div>
   </div>
   <transition
     v-on:before-enter="beforeEnter"
     v-on:enter="enter"
     v-on:leave="leave"
-    v-bind:css="false">
+    :css="false"
+  >
     <div
       v-if="isVisible"
       class="lectures"
@@ -39,6 +64,17 @@
         :key="index"
       >
         <div class="pre-lecture">
+          <span
+            @click="toggleFavoriteResource(resource)"
+            class="material-icons"
+            :class="{
+              'favorited': favorites.includes(resource.id) === true,
+              'inactive': favorites.includes(resource.id) === false
+            }"
+          >
+            {{ favorites.includes(resource.id) ? 'favorite' : 'favorite_border' }}
+          </span>
+          &nbsp;{{ index + 1 }}.&nbsp;
           <a :href="resource.url" target="_blank">{{ resource.title }}</a>
         </div>
       </div>
@@ -47,20 +83,22 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { Class } from '../../config/types';
+import { defineComponent, PropType } from 'vue';
+import Velocity from 'velocity-animate';
+import { Class, Resource } from '../../config/types';
 /* eslint-disable */
 export default defineComponent({
   name: 'CourseCard',
   props: {
     course: {
-      type: Object, //eslint-disable-line
+      type: Object as PropType<Class>,
       required: true,
     },
   },
   data() {
     return {
       isVisible: false as boolean,
+      favorites: JSON.parse(''+localStorage.getItem('vue-docs-favs')),
     };
   },
   computed: {
@@ -70,14 +108,19 @@ export default defineComponent({
     altText(): string {
       return `${this.course.title}-course-image`;
     },
+    courseIsFavorited(): boolean {
+      return this.course.resources.some((resource: Resource) => {
+        console.log(this.favorites, resource.id)
+        return this.favorites.includes(resource.id);
+      })
+    },
   },
-  /* eslint-disable */
   methods: {
     beforeEnter (el: any) {
       el.style.opacity = 0;
       el.style.transformOrigin = 'left';
+      el.style.fontSize = '0';
     },
-    /* eslint-disable */
     enter(el: any, done: any) {
       Velocity(el, { opacity: 1, fontSize: '1.4em' }, { duration: 300 });
       Velocity(el, { fontSize: '1em' }, { complete: done });
@@ -94,6 +137,22 @@ export default defineComponent({
     },
     handleHide(): void {
       this.isVisible = false;
+    },
+    isFavoriteResource(resource: Resource): boolean {
+      const favorites: string[] = JSON.parse(''+localStorage.getItem('vue-docs-favs'));
+      return favorites.includes(resource.id);
+    },
+    toggleFavoriteResource(resource: Resource): void {
+      const favorites: string[] = JSON.parse(''+localStorage.getItem('vue-docs-favs'));
+      const indexOf = favorites.indexOf(resource.id);
+      if (indexOf === -1) {
+        favorites.push(resource.id)
+        this.favorites.push(resource.id)
+      } else {
+        favorites.splice(indexOf, 1)
+        this.favorites.splice(indexOf, 1)
+      }
+      localStorage.setItem('vue-docs-favs', JSON.stringify(favorites));
     },
   },
 });
@@ -113,11 +172,19 @@ export default defineComponent({
   margin-top: 2rem;
   cursor: pointer;
   background-color: white;
-  z-index: 30;
+  z-index: 8;
+  position: relative;
 
   &:hover {
     background-color: rgba(240, 240, 240, 1 );
   }
+}
+
+.course-favorite {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: red;
 }
 
 .img-div {
@@ -156,21 +223,26 @@ export default defineComponent({
   }
 }
 .lectures {
-  z-index: 4;
+  z-index: 4 !important;
   color: black;
   text-align: left;
   margin-left: 5rem;
+  column-count: 3;
+  column-fill: auto;
 
   .lecture {
     display: flex;
     align-items: flex-end;
+    break-inside: avoid;
+    font-size: 18px;
 
     .pre-lecture {
-      height: 30px;
-      padding-top: .5rem;
+      height: 50px;
+      padding-top: 0.5rem;
       border-left: 1px solid rgba(220, 220, 220, .8);
       border-bottom: 1px solid rgba(220, 220, 220, .8);
-      padding-left: 2rem;
+      padding-left: 1rem;
+      padding-bottom: 0.4rem;
       display: flex;
       align-items: flex-end;
 
@@ -178,7 +250,22 @@ export default defineComponent({
         text-decoration: none;
         color: black;
       }
+
+      .inactive {
+        cursor: pointer;
+        opacity: 0.3;
+      }
+      .favorited {
+        cursor: pointer;
+        color: red;
+      }
     }
+  }
+}
+
+@media only screen and (max-width: 1080px) {
+  .lectures {
+    column-count: 2;
   }
 }
 
@@ -192,6 +279,7 @@ export default defineComponent({
     color: black;
     text-align: left;
     margin-left: 1rem;
+    column-count: 1;
   }
 
   .title {
