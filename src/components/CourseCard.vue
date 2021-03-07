@@ -144,14 +144,14 @@ export default defineComponent({
     toggleFavoriteResource(resource: Resource): void {
       const favorites: string[] = JSON.parse(''+localStorage.getItem('vue-docs-favs'))  || [];
       const indexOf = favorites.indexOf(resource.id);
+      let newFavorites = [...favorites];
       if (indexOf === -1) {
-        favorites.push(resource.id)
-        this.favorites.push(resource.id)
+        newFavorites.push(resource.id)
       } else {
-        favorites.splice(indexOf, 1)
-        this.favorites.splice(indexOf, 1)
+        newFavorites = newFavorites.filter(id => id !== resource.id);
       }
-      localStorage.setItem('vue-docs-favs', JSON.stringify(favorites));
+      this.favorites = newFavorites;
+      localStorage.setItem('vue-docs-favs', JSON.stringify(newFavorites));
     },
   },
 });
