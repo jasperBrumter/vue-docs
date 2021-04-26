@@ -22,3 +22,10 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### Heroku deploy
+`git push heroku master`
+more info: https://cli.vuejs.org/guide/deployment.html#heroku
+
+### Main code source
+https://github.com/Code-Pop
