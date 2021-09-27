@@ -23,6 +23,41 @@ export const todo = [
 
 export const data: Class[] = [
   {
+    title: 'Intro to Vite',
+    image: 'vite.png',
+    difficulty: 'Advanced',
+    vue3: true,
+    vue2: true,
+    externalLinks: [],
+    resources: [
+      {
+        id: '570298143',
+        title: 'Intro to Vite',
+        url: 'https://player.vimeo.com/video/570298143',
+      },
+      {
+        id: '574222564',
+        title: 'CSS & Debugging',
+        url: 'https://player.vimeo.com/video/574222564',
+      },
+      {
+        id: '574224291',
+        title: 'Working with assets',
+        url: 'https://player.vimeo.com/video/574224291',
+      },
+      {
+        id: '574224535',
+        title: 'Getting working with Vite',
+        url: 'https://player.vimeo.com/video/574224535',
+      },
+      {
+        id: '574225014',
+        title: 'Moving to Vite',
+        url: 'https://player.vimeo.com/video/574225014',
+      },
+    ],
+  },
+  {
     title: 'Intro to Vue 2',
     image: 'vue2.png',
     difficulty: 'Beginner',
