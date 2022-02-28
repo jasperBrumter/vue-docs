@@ -19,6 +19,9 @@ export const todo = [
   'Intro to State Management',
   'Vuex fundamentals TBD',
   'Real World Testing TBD',
+  'Intro to GraphQL',
+  'Validating Vue 3 Forms',
+  'Progressive Web Apps with Vue 3',
 ];
 
 export const data: Class[] = [
@@ -26,8 +29,8 @@ export const data: Class[] = [
     title: 'Intro to Vite',
     image: 'vite.png',
     difficulty: 'Advanced',
-    vue3: true,
-    vue2: true,
+    vue3: false,
+    vue2: false,
     externalLinks: [],
     resources: [
       {
@@ -54,6 +57,46 @@ export const data: Class[] = [
         id: '574225014',
         title: 'Moving to Vite',
         url: 'https://player.vimeo.com/video/574225014',
+      },
+    ],
+  },
+  {
+    title: 'Validating Vue 3 Forms',
+    image: 'forms-vue3.png',
+    difficulty: 'Intermediate',
+    vue3: true,
+    vue2: false,
+    externalLinks: [],
+    resources: [
+      {
+        id: '567608456',
+        title: 'Why Vee-Validate?',
+        url: 'https://player.vimeo.com/video/567608456',
+      },
+      {
+        id: '577814885',
+        title: 'Setting Up',
+        url: 'https://player.vimeo.com/video/577814885',
+      },
+    ],
+  },
+  {
+    title: 'Progressive Web Apps with Vue 3',
+    image: 'pwa.png',
+    difficulty: 'Intermediate',
+    vue3: true,
+    vue2: false,
+    externalLinks: [],
+    resources: [
+      {
+        id: '552216563',
+        title: 'What are progressive web apps?',
+        url: 'https://player.vimeo.com/video/552216563',
+      },
+      {
+        id: '562907909',
+        title: 'Overview and Setup',
+        url: 'https://player.vimeo.com/video/562907909',
       },
     ],
   },
@@ -239,6 +282,26 @@ export const data: Class[] = [
         id: '296095457',
         title: 'Success & Error Notifications',
         url: 'https://player.vimeo.com/video/296095457?autoplay=1',
+      },
+    ],
+  },
+  {
+    title: 'Vuex Fundamentals',
+    image: 'vuex-vue3.png',
+    difficulty: 'Beginner',
+    vue3: true,
+    vue2: false,
+    externalLinks: [],
+    resources: [
+      {
+        id: '515894346',
+        title: 'Intro to Vuex',
+        url: 'https://player.vimeo.com/video/515894346',
+      },
+      {
+        id: '529759116',
+        title: 'Global State',
+        url: 'https://player.vimeo.com/video/529759116',
       },
     ],
   },
@@ -943,6 +1006,21 @@ export const data: Class[] = [
     ],
   },
   {
+    title: 'Querying with GraphQL',
+    image: 'graphQL.png',
+    difficulty: 'Intermediate',
+    externalLinks: [],
+    vue3: true,
+    vue2: true,
+    resources: [
+      {
+        id: '646223150',
+        title: 'Intro to GraphQL',
+        url: 'https://player.vimeo.com/video/646223150',
+      },
+    ],
+  },
+  {
     title: 'Intro to Vue 3',
     image: 'intro_vue_3.png',
     difficulty: 'Beginner',
@@ -1199,6 +1277,46 @@ export const data: Class[] = [
         id: '519596515',
         title: 'Bonus: Composition API & Typescript',
         url: 'https://player.vimeo.com/video/519596515',
+      },
+    ],
+  },
+  {
+    title: 'Typescript Friendly Vue 3',
+    image: 'vue-typescript.png',
+    difficulty: 'Advanced',
+    vue3: true,
+    vue2: false,
+    externalLinks: [],
+    resources: [
+      {
+        id: '648852984',
+        title: 'Introduction to the Script Setup Syntax',
+        url: 'https://player.vimeo.com/video/648852984',
+      },
+      {
+        id: '651359954',
+        title: 'Reactive Variables with Type Inference',
+        url: 'https://player.vimeo.com/video/651359954,
+      },
+      {
+        id: '652200640',
+        title: 'Typing your callback functions',
+        url: 'https://player.vimeo.com/video/652200640',
+      },
+      {
+        id: '655076710',
+        title: 'Props with Compiler Macros',
+        url: 'https://player.vimeo.com/video/655076710',
+      },
+      {
+        id: '655481851',
+        title: 'Type-Safe Emit',
+        url: 'https://player.vimeo.com/video/655481851',
+      },
+      {
+        id: '659422198',
+        title: '(Bonus) Vue vs React: Framework Philosophy',
+        url: 'https://player.vimeo.com/video/659422198',
       },
     ],
   },
